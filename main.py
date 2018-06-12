@@ -35,7 +35,7 @@ for page in pages:
 
 
 todos_abaixo_erro = False
-while(!todos_abaixo_erro):
+while(not todos_abaixo_erro):
     for page in pages:
         new_pr = 0
         #pegando os que apontam para ela
