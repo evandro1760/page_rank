@@ -3,10 +3,24 @@ from os import listdir as la
 import networkx as nx
 import matplotlib.pyplot as plt
 
-G = nx.DiGraph()
-pages = la('pages/')
-G.add_nodes_from(pages)
+options = {
+    'node_color': 'white',
+    'node_size': 5000,
+    'width': 3,
+    'arrowstyle': '-|>',
+    'arrowsize': 12,
+    'with_labels': True,
+}
 
+G = nx.DiGraph()
+
+pages = la('pages/')
+#pages_name = [x.replace('.html','') for x in pages]
+G.add_nodes_from(pages, weight=0.4)
+
+#nx.draw(G, **options, pos=nx.circular_layout(G))
+
+plt.show()
 
 pages_ranks = {}
 eg = 0.01
@@ -29,9 +43,14 @@ for page in pages:
         #Tem que criar duplicatas
         parents[link_page].append(page)
         children[page].append(link_page)
-    
-#nx.draw(G, with_labels=True, font_weight='bold')
-#plt.show()
+
+#nx.draw_networkx_labels(G)
+#labels = nx.draw_networkx_labels(G, pos=pos)
+nx.draw(G, **options, pos=nx.circular_layout(G),
+    edge_color=range(G.number_of_edges()),
+    edge_cmap=plt.cm.Blues)
+
+plt.show()
 
 
 todos_abaixo_erro = False
